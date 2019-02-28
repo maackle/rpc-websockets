@@ -695,7 +695,7 @@ var Server = function (_EventEmitter) {
             var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(message, socket_id) {
                 var ns = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "/";
 
-                var results, event_names, _iteratorNormalCompletion5, _didIteratorError5, _iteratorError5, _iterator5, _step5, name, index, namespace, socket_index, _results, _iteratorNormalCompletion6, _didIteratorError6, _iteratorError6, _iterator6, _step6, _name, _index, response;
+                var results, event_names, _iteratorNormalCompletion5, _didIteratorError5, _iteratorError5, _iterator5, _step5, name, index, namespace, socket_index, _results, _iteratorNormalCompletion6, _didIteratorError6, _iteratorError6, _iterator6, _step6, _name, _index, response, socket;
 
                 return _regenerator2.default.wrap(function _callee2$(_context2) {
                     while (1) {
@@ -983,29 +983,30 @@ var Server = function (_EventEmitter) {
 
                             case 93:
                                 response = null;
-                                _context2.prev = 94;
-                                _context2.next = 97;
-                                return this.namespaces[ns].rpc_methods[message.method](message.params);
+                                socket = this.namespaces[ns].clients.get(socket_id);
+                                _context2.prev = 95;
+                                _context2.next = 98;
+                                return this.namespaces[ns].rpc_methods[message.method](message.params, socket);
 
-                            case 97:
+                            case 98:
                                 response = _context2.sent;
-                                _context2.next = 107;
+                                _context2.next = 108;
                                 break;
 
-                            case 100:
-                                _context2.prev = 100;
-                                _context2.t2 = _context2["catch"](94);
+                            case 101:
+                                _context2.prev = 101;
+                                _context2.t2 = _context2["catch"](95);
 
                                 if (message.id) {
-                                    _context2.next = 104;
+                                    _context2.next = 105;
                                     break;
                                 }
 
                                 return _context2.abrupt("return");
 
-                            case 104:
+                            case 105:
                                 if (!(_context2.t2 instanceof Error)) {
-                                    _context2.next = 106;
+                                    _context2.next = 107;
                                     break;
                                 }
 
@@ -1019,34 +1020,34 @@ var Server = function (_EventEmitter) {
                                     id: message.id
                                 });
 
-                            case 106:
+                            case 107:
                                 return _context2.abrupt("return", {
                                     jsonrpc: "2.0",
                                     error: _context2.t2,
                                     id: message.id
                                 });
 
-                            case 107:
+                            case 108:
                                 if (message.id) {
-                                    _context2.next = 109;
+                                    _context2.next = 110;
                                     break;
                                 }
 
                                 return _context2.abrupt("return");
 
-                            case 109:
+                            case 110:
                                 return _context2.abrupt("return", {
                                     jsonrpc: "2.0",
                                     result: response,
                                     id: message.id
                                 });
 
-                            case 110:
+                            case 111:
                             case "end":
                                 return _context2.stop();
                         }
                     }
-                }, _callee2, this, [[18, 38, 42, 50], [43,, 45, 49], [60, 78, 82, 90], [83,, 85, 89], [94, 100]]);
+                }, _callee2, this, [[18, 38, 42, 50], [43,, 45, 49], [60, 78, 82, 90], [83,, 85, 89], [95, 101]]);
             }));
 
             function _runMethod(_x7, _x8) {

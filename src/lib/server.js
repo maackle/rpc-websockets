@@ -552,8 +552,12 @@ export default class Server extends EventEmitter
         }
 
         let response = null
+        const socket = this.namespaces[ns].clients.get(socket_id)
 
-        try { response = await this.namespaces[ns].rpc_methods[message.method](message.params) }
+        try
+        {
+            response = await this.namespaces[ns].rpc_methods[message.method](message.params, socket)
+        }
 
         catch (error)
         {
